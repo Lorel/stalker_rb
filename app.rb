@@ -4,6 +4,7 @@ require 'json'
 require 'slim'
 
 load "agent.rb"
+load "environment.rb"
 load "core.rb"
 
 class App < Sinatra::Base
@@ -23,10 +24,11 @@ class App < Sinatra::Base
     }
     session[:instance] = Core.new options
     content_type :json
-    session[:instance].environment.to_json
+    session[:instance].to_json
   end
 
   get '/turn' do
+    sleep(1) if session[:instance].nil?
     begin
       session[:instance].environment.turn
     rescue => error
@@ -34,7 +36,7 @@ class App < Sinatra::Base
     end
 
     content_type :json
-    session[:instance].environment.to_json
+    session[:instance].to_json
   end
 
   run! if app_file == $0 # run Sinatra

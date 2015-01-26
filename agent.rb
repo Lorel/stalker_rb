@@ -24,7 +24,7 @@ class Idol < Agent
   end
 
   def move
-    move_to run_away_square1
+    move_to self.send("run_away_square#{Marsys::Settings.params[:strategy]}")
   end
 
   def run_away_square1

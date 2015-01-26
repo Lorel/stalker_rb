@@ -43,14 +43,20 @@ html
 
     body
         #content
-            h1 Schelling Segregation Simulation
+            h1 Stalker
 
             form#init.form-inline
                 .form-group
                     input.form-control name="size" placeholder="Taille"
                     input.form-control name="stalker_population" placeholder="Population de stalkers"
                     input.form-control name="block_population" placeholder="Population de blocks"
-                    input.form-control name="strategy" placeholder="Strategie"
+                    select.form-control name="strategy"
+                        option value="1"
+                            'Stratégie 1
+                        option value="2"
+                            'Stratégie 2
+                        option value="3"
+                            'Stratégie 3
                     button.btn name="run"
                         'Run !
 
@@ -79,8 +85,8 @@ html
 
             if ( $('input[name="size"]').val() ) { window.sizeStalker = $('input[name="size"]').val(); } else { window.sizeStalker = 50; $('input[name="size"]').val(window.sizeStalker); }
             if ( $('input[name="stalker_population"]').val() ) { window.stalkers = $('input[name="stalker_population"]').val(); } else { window.stalkers = 3; $('input[name="stalker_population"]').val(window.stalkers); }
-            if ( $('input[name="block_population"]').val() ) { window.blocks = $('input[name="block_population"]').val(); } else { window.blocks = 50; $('input[name="block_population"]').val(window.blocks); }
-            if ( $('input[name="strategy"]').val() ) { window.strategy = $('input[name="strategy"]').val(); } else { window.strategy = 0; $('input[name="strategy"]').val(window.strategy); }
+            if ( $('input[name="block_population"]').val() ) { window.blocks = $('input[name="block_population"]').val(); } else { window.blocks = 500; $('input[name="block_population"]').val(window.blocks); }
+            window.strategy = $( 'select[name="strategy"] option:selected' ).val();
 
             window.init();
             window.running = confirm("L'expérience a été initialisée, appuyez sur OK pour démarrer\n(à tout moment, vous pouvez arrêter et redémarrer l'expérience en appuyant sur la touche 'S')");
@@ -113,8 +119,7 @@ html
                 // datas process
                 window.iterations = data.iteration;
                 $iterations.text( window.iterations );
-                // $global_satisfaction_rate.text( data.global_satisfaction_rate );
-
+                window.running = window.running && !data.stop_condition;
                 // data process END
 
                 // update grid
@@ -138,7 +143,7 @@ html
 
             }).fail(function( error ) {
                 console.log(error);
-            }).always(function() {
+            }).then(function() {
                 setTimeout( turn, window.delay );
             });
         }

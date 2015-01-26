@@ -1,7 +1,7 @@
 params:
-  iterations: 30
-  dimensions: 30
-  population: 50
+  iterations: 200
+  dimensions: 20
   idol_population: 1
   stalker_population: 3
-  block_population: 10
+  block_population: 100
+  strategy: 1

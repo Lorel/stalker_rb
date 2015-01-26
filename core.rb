@@ -1,9 +1,3 @@
-require 'marsys'
-require 'pp'
-
-load "agent.rb"
-load "environment.rb"
-
 class Core < Marsys::Core
   def initialize(options={})
     @agents = [:idol, :stalker, :block]
@@ -17,11 +11,11 @@ class Core < Marsys::Core
     # @environment.display_dijkstra
   end
 
+  def to_json(options = {})
+    super(options.merge({ stop_condition: stop_condition? }))
+  end
+
   def stop_condition?
     !@environment.squares_around_with_stalker(@environment.idols.first.square).empty?
   end
 end
-
-test = Core.new
-test.display
-puts test.to_json
