@@ -1,0 +1,7 @@
+params:
+  iterations: 30
+  dimensions: 30
+  population: 50
+  idol_population: 1
+  stalker_population: 3
+  block_population: 10
