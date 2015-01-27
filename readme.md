@@ -47,4 +47,4 @@ Stop/Restart the simulation by using 'S' key
 -------------------------------------------------------------------------------
 
 #### Von Neumann neighbourhood movement is much better for idol
-![Von Neumann neighbourhood movement is much better](http://snag.gy/iIyFJ.jpg)
+![Von Neumann neighbourhood movement is much better](http://snag.gy/XCW3B.jpg)
