@@ -3,11 +3,7 @@ class Agent < Marsys::Agent
   def initialize(environment, square = nil)
     super
   end
-
-  # def to_json(options = {})
-  #   super
-  # end
-
+  
   def move
     super
   end

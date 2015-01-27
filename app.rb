@@ -15,12 +15,13 @@ class App < Sinatra::Base
     slim :index
   end
 
-  get '/init/:size/:stalker_population/:block_population/:strategy' do
+  get '/init/:size/:stalker_population/:block_population/:strategy/:von_neumann' do
     options = {
       dimensions:                 params[:size].to_i,
       stalker_population:         params[:stalker_population].to_i,
       block_population:           params[:block_population].to_i,
-      strategy:                   params[:strategy].to_i
+      strategy:                   params[:strategy].to_i,
+      von_neumann:                params[:von_neumann] == 'true'
     }
     session[:instance] = Core.new options
     content_type :json

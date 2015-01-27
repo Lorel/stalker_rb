@@ -5,3 +5,4 @@ params:
   stalker_population: 3
   block_population: 100
   strategy: 1
+  von_neumann: false

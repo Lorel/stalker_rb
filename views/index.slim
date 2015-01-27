@@ -18,6 +18,15 @@ html
             #init {
                 padding: 30px 0;
             }
+            #init input[type="radio"] {
+                margin: 0 10px;
+            }
+            #init input[type="radio"]+span {
+                padding: 0 30px 0 10px;
+            }
+            #init .form-inline {
+                padding: 10px 20px;
+            }
             #world {
                 border-collapse: collapse;
                 padding: 50px;
@@ -45,20 +54,28 @@ html
         #content
             h1 Stalker
 
-            form#init.form-inline
-                .form-group
-                    input.form-control name="size" placeholder="Taille"
-                    input.form-control name="stalker_population" placeholder="Population de stalkers"
-                    input.form-control name="block_population" placeholder="Population de blocks"
-                    select.form-control name="strategy"
-                        option value="1"
-                            'Stratégie 1
-                        option value="2"
-                            'Stratégie 2
-                        option value="3"
-                            'Stratégie 3
-                    button.btn name="run"
-                        'Run !
+            form#init
+                .form-inline
+                    .form-group
+                        input.form-control name="size" placeholder="Taille"
+                        input.form-control name="stalker_population" placeholder="Population de stalkers"
+                        input.form-control name="block_population" placeholder="Population de blocks"
+                        select.form-control name="strategy"
+                            option value="1"
+                                'Stratégie 1
+                            option value="2"
+                                'Stratégie 2
+                            option value="3"
+                                'Stratégie 3
+                .form-inline
+                    .form-group
+                        input type="radio" name="neighbourhood" value="false" checked=""
+                            span="Voisinage de Moore"
+                        input type="radio" name="neighbourhood" value="true"
+                            span="Voisinage de Von Neumann"
+                    .form-group
+                        button.btn name="run"
+                            'Run !
 
             table#world
 
@@ -75,7 +92,9 @@ html
 
         var sizeStalker,
             stalker,
-            blocks;
+            blocks,
+            strategy,
+            neighbourhood;
 
         $( "#init" ).on( 'click', 'button[name="run"]', function(e){
             e.preventDefault(); e.stopPropagation();
@@ -86,6 +105,7 @@ html
             if ( $('input[name="stalker_population"]').val() ) { window.stalkers = $('input[name="stalker_population"]').val(); } else { window.stalkers = 3; $('input[name="stalker_population"]').val(window.stalkers); }
             if ( $('input[name="block_population"]').val() ) { window.blocks = $('input[name="block_population"]').val(); } else { window.blocks = 500; $('input[name="block_population"]').val(window.blocks); }
             window.strategy = $( 'select[name="strategy"] option:selected' ).val();
+            window.neighbourhood = $('input[name="neighbourhood"]:checked').val();
 
             window.init();
             window.running = confirm("L'expérience a été initialisée, appuyez sur OK pour démarrer\n(à tout moment, vous pouvez arrêter et redémarrer l'expérience en appuyant sur la touche 'S')");
@@ -148,8 +168,8 @@ html
         }
 
         function init() {
-            //init/:size/:stalker_population/:block_population/:satifaction_rate
-            call( "init/" + window.sizeStalker + "/" + window.stalkers + "/" + window.blocks + "/" + window.strategy);
+            //init/:size/:stalker_population/:block_population/:satifaction_rate/:von_neumann
+            call( "init/" + window.sizeStalker + "/" + window.stalkers + "/" + window.blocks + "/" + window.strategy + "/" + window.neighbourhood );
         }
 
         function turn() {
