@@ -5,7 +5,7 @@ class Environment < Marsys::Environment
   end
 
   def squares_around square
-    super #.select{|s| (s.x == square.x) || (s.y == square.y) }
+    super.shuffle #.select{|s| (s.x == square.x) || (s.y == square.y) }
   end
 
   def dijkstra
